@@ -59,14 +59,22 @@ class CharRNNTrainer(MosesTrainer):
 
         model.zero_grad()
         for epoch in range(self.config.train_epochs):
-            scheduler.step()
-
+            
             tqdm_data = tqdm(train_loader,
                              desc='Training (epoch #{})'.format(epoch))
             postfix = self._train_epoch(model, tqdm_data, criterion, optimizer)
             if logger is not None:
                 logger.append(postfix)
                 logger.save(self.config.log_file)
+
+            '''
+            /home/descartes/anaconda3/envs/moses/lib/python3.7/site-packages/torch/optim/lr_scheduler.py:122:
+            UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later,
+            you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`. 
+            Failure to do this will result in PyTorch skipping the first value of the learning rate schedule.
+            See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+            '''
+            scheduler.step()
 
             if val_loader is not None:
                 tqdm_data = tqdm(val_loader,
