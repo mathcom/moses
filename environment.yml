@@ -1,0 +1,21 @@
+name: moses
+channels:
+    - pytorch
+    - conda-forge
+dependencies:
+    - python=3.7
+    - cudatoolkit=10.0
+    - pytorch=1.4.0
+    - fcd_torch=1.0.7
+    - tensorflow-gpu=1.14.0
+    - keras=2.2.5
+    - rdkit=2022.03.4
+    - scipy
+    - numpy
+    - scikit-learn
+    - pandas
+    - matplotlib
+    - seaborn
+    - tqdm
+    - jupyter
+    - pip
